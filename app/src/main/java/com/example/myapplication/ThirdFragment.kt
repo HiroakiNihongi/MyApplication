@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.myapplication.databinding.FragmentThirdBinding
 
-class ThirdFragment() : Fragment() {
+class ThirdFragment : Fragment() {
 
     private var _binding: FragmentThirdBinding? = null
 

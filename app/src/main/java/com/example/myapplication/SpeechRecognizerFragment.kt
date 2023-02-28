@@ -6,25 +6,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.databinding.FragmentSpeechRecognizerBinding
 
 class SpeechRecognizerFragment : Fragment() {
-    companion object {
-        fun newInstance() = SpeechRecognizerFragment()
-    }
+
+    private var _binding: FragmentSpeechRecognizerBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     private lateinit var viewModel: SpeechRecognizerViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_speech_recognizer, container, false)
+    ): View {
+        _binding = FragmentSpeechRecognizerBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,9 +37,9 @@ class SpeechRecognizerFragment : Fragment() {
         val granted = ContextCompat.checkSelfPermission(requireContext(), RECORD_AUDIO)
         if (granted != PackageManager.PERMISSION_GRANTED) {
             view.apply {
-                findViewById<Button>(R.id.recognize_start_button).isEnabled = false
+                binding.recognizeStartButton.isEnabled = false
 
-                findViewById<Button>(R.id.recognize_stop_button).isEnabled = false
+                binding.recognizeStopButton.isEnabled = false
             }
             requestPermissionLauncher.launch(RECORD_AUDIO)
         } else {
@@ -44,23 +47,29 @@ class SpeechRecognizerFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
     private fun initialization() {
         viewModel.initialize()
         viewModel.recognizeText.observe(viewLifecycleOwner) {
             view?.apply {
-                findViewById<TextView>(R.id.recognize_text_view)?.text = it
+                binding.recognizeTextView
+                    .text = it
             }
         }
 
         view?.apply {
-            findViewById<Button>(R.id.recognize_start_button).apply {
+            binding.recognizeStartButton.apply {
                 isEnabled = true
                 setOnClickListener {
                     viewModel.start()
                 }
             }
 
-            findViewById<Button>(R.id.recognize_stop_button).apply {
+            binding.recognizeStopButton.apply {
                 isEnabled = true
                 setOnClickListener {
                     viewModel.stop()
