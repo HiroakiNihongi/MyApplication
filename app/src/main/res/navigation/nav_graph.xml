@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.example.myapplication.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_WordFragment"
+            app:destination="@id/WordFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_speechRecognizerFragment"
+            app:destination="@id/speechRecognizerFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_myAppBottomSheetDialogFragment"
+            app:destination="@id/myAppBottomSheetDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.example.myapplication.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_thirdFragment"
+            app:destination="@id/ThirdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ThirdFragment"
+        android:name="com.example.myapplication.ThirdFragment"
+        android:label="fragment_third"
+        tools:layout="@layout/fragment_third">
+        <action
+            android:id="@+id/action_thirdFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/WordFragment"
+        android:name="com.example.myapplication.word.WordFragment"
+        android:label="fragment_word"
+        tools:layout="@layout/fragment_word">
+        <action
+            android:id="@+id/action_WordFragment_to_NewWordFragment"
+            app:destination="@id/NewWordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NewWordFragment"
+        android:name="com.example.myapplication.NewWordFragment"
+        android:label="NewWordFragment"
+        tools:layout="@layout/fragment_new_word" />
+    <fragment
+        android:id="@+id/speechRecognizerFragment"
+        android:name="com.example.myapplication.SpeechRecognizerFragment"
+        android:label="fragment_speech_recognizer"
+        tools:layout="@layout/fragment_speech_recognizer" />
+    <dialog
+        android:id="@+id/myAppBottomSheetDialogFragment"
+        android:name="com.example.myapplication.MyAppBottomSheetDialogFragment"
+        android:label="MyAppBottomSheetDialogFragment" />
+</navigation>
